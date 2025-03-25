@@ -1,0 +1,124 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    background-color: #f4f4f9;
+    color: #333;
+}
+
+header {
+    background-color: #4CAF50;
+    color: white;
+    padding: 1rem 0;
+    position: relative;
+}
+
+header .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 1.8rem;
+}
+
+header .sub-container {
+    display: flex; /* Align p and nav side by side */
+    justify-content: center; /* Center-align the content */
+    align-items: center; /* Vertically align p and nav */
+    margin-top: 0.5rem;
+    gap: 1rem; /* Add spacing between p and nav */
+    position: relative;
+}
+
+header p {
+    margin: 0;
+    font-size: 1rem;
+    text-align: center; /* Center-align the p tag */
+    flex: 1; /* Allow p to take up available space */
+}
+
+.nav-links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex; /* Align nav items side by side */
+    gap: 1rem; /* Add spacing between nav items */
+    position: absolute;
+    right: 0; /* Align nav to the right of the sub-container */
+}
+
+.nav-links li {
+    margin: 0;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    font-size: 1rem;
+}
+
+.nav-links .login-btn {
+    background-color: white;
+    color: #4CAF50;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.nav-links .login-btn:hover {
+    background-color: #45a049;
+    color: white;
+}
+
+main {
+    padding: 1.5rem;
+}
+
+section {
+    margin-bottom: 2rem;
+}
+
+section h2 {
+    color: #4CAF50;
+    margin-bottom: 0.5rem;
+}
+
+ul {
+    list-style-type: disc;
+    margin-left: 1.5rem;
+}
+/* Video Section Styles */
+.video-section {
+    text-align: center;
+    margin: 2rem auto;
+    padding: 1rem;
+}
+
+.video-section h2 {
+    font-size: 1.8rem;
+    color: #4CAF50;
+    margin-bottom: 1rem;
+}
+
+.video-section video {
+    width: 80%; /* Adjust width as needed */
+    max-width: 800px; /* Limit the maximum width */
+    border-radius: 8px; /* Add rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
+}
+
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 1rem 0;
+    margin-top: 2rem;
+}

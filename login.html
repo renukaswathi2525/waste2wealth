@@ -1,0 +1,431 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="login.css">
+    <style>
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50; /* Add a green background color */
+            color: white; /* Set the text color to white */
+            border: none; /* Remove the border */
+            border-radius: 4px; /* Add rounded corners */
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #45a049; /* Darker green on hover */
+            color: white; /* Keep the text color white on hover */
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h2>Login</h2>
+        <form>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" placeholder="Enter your username" required>
+            
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" placeholder="Enter your password" required>
+            
+            <button type="submit">Login</button>
+        </form>
+        <div class="signup-container">
+            <p>Don't have an account?</p>
+            <button class="signup-btn" onclick="window.location.href='signup.html'">Sign Up</button>
+        </div>
+    </div>
+</body>
+</html> -->
+
+<!-- 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="login.css">
+    <style>
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+            color: white;
+        }
+
+        #error-message {
+            color: red;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+
+        .loading {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+    </style>
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+    import { getFirestore, collection, getDocs, query, where } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyC435II3AsR1m-zFRx4vIIyKdmK-Iaaor4",
+        authDomain: "waste-to-wealth-8a8a6.firebaseapp.com",
+        projectId: "waste-to-wealth-8a8a6",
+        storageBucket: "waste-to-wealth-8a8a6.firebasestorage.app",
+        messagingSenderId: "3177280169",
+        appId: "1:3177280169:web:b1391b8f059ed7ab72afb8",
+        measurementId: "G-CNS0P3R1HK"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const loginForm = document.getElementById("login-form");
+        const loginButton = loginForm.querySelector("button");
+
+        loginForm.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            
+            loginButton.disabled = true;
+            loginButton.classList.add("loading");
+            loginButton.textContent = "Logging in...";
+
+            const loginInput = document.getElementById("login-input").value;
+            const password = document.getElementById("password").value;
+            const errorMessage = document.getElementById("error-message");
+            errorMessage.textContent = "";
+
+            try {
+                const usersRef = collection(db, "users");
+                const q = query(usersRef, where("username", "==", loginInput));
+                const q2 = query(usersRef, where("email", "==", loginInput));
+                
+                const querySnapshot = await getDocs(q);
+                const querySnapshot2 = await getDocs(q2);
+                
+                let user = null;
+                querySnapshot.forEach((doc) => user = doc.data());
+                querySnapshot2.forEach((doc) => user = doc.data());
+                
+                if (user && user.password === password) {
+                    alert("Login successful!");
+                    window.location.href = "index.html";
+                } else {
+                    errorMessage.textContent = "Invalid username or password";
+                }
+            } catch (error) {
+                console.error("Error logging in: ", error);
+                errorMessage.textContent = "Error logging in. Try again later.";
+            }
+
+            loginButton.disabled = false;
+            loginButton.classList.remove("loading");
+            loginButton.textContent = "Login";
+        });
+    });
+</script>
+</head>
+<body>
+    <div class="login-container">
+        <h2>Login</h2>
+        <form id="login-form">
+            <label for="login-input">Username or Email:</label>
+            <input type="text" id="login-input" name="login-input" placeholder="Enter your username or email" required>
+            
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" placeholder="Enter your password" required>
+            
+            <p id="error-message"></p>
+            
+            <button type="submit">Login</button>
+        </form>
+        <div class="signup-container">
+            <p>Don't have an account?</p>
+            <button class="signup-btn" onclick="window.location.href='signup.html'">Sign Up</button>
+        </div>
+    </div>
+</body>
+</html> -->
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="login.css">
+    <style>
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+            color: white;
+        }
+
+        #error-message {
+            color: red;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+
+        .loading {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+    </style>
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+    import { getFirestore, collection, getDocs, query, where } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyC435II3AsR1m-zFRx4vIIyKdmK-Iaaor4",
+        authDomain: "waste-to-wealth-8a8a6.firebaseapp.com",
+        projectId: "waste-to-wealth-8a8a6",
+        storageBucket: "waste-to-wealth-8a8a6.firebasestorage.app",
+        messagingSenderId: "3177280169",
+        appId: "1:3177280169:web:b1391b8f059ed7ab72afb8",
+        measurementId: "G-CNS0P3R1HK"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const loginForm = document.getElementById("login-form");
+        const loginButton = loginForm.querySelector("button");
+
+        loginForm.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            
+            loginButton.disabled = true;
+            loginButton.classList.add("loading");
+            loginButton.textContent = "Logging in...";
+
+            const loginInput = document.getElementById("login-input").value;
+            const password = document.getElementById("password").value;
+            const errorMessage = document.getElementById("error-message");
+            errorMessage.textContent = "";
+
+            try {
+                const usersRef = collection(db, "users");
+                const q = query(usersRef, where("username", "==", loginInput));
+                const q2 = query(usersRef, where("email", "==", loginInput));
+                
+                const querySnapshot = await getDocs(q);
+                const querySnapshot2 = await getDocs(q2);
+                
+                let user = null;
+                querySnapshot.forEach((doc) => user = doc.data());
+                querySnapshot2.forEach((doc) => user = doc.data());
+                
+                if (user && user.password === password) {
+
+                      // Store user details in localStorage
+                    localStorage.setItem("username", user.username);
+                    localStorage.setItem("email", user.email);
+
+                    alert("Login successful!");
+                    window.location.href = "index.html";
+                } else {
+                    errorMessage.textContent = "Invalid username or password";
+                }
+            } catch (error) {
+                console.error("Error logging in: ", error);
+                errorMessage.textContent = "Error logging in. Try again later.";
+            }
+
+            loginButton.disabled = false;
+            loginButton.classList.remove("loading");
+            loginButton.textContent = "Login";
+        });
+    });
+</script>
+</head>
+<body>
+    <div class="login-container">
+        <h2>Login</h2>
+        <form id="login-form">
+            <label for="login-input">Username or Email:</label>
+            <input type="text" id="login-input" name="login-input" placeholder="Enter your username or email" required>
+            
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" placeholder="Enter your password" required>
+            
+            <p id="error-message"></p>
+            
+            <button type="submit">Login</button>
+        </form>
+        <div class="signup-container">
+            <p>Don't have an account?</p>
+            <button class="signup-btn" onclick="window.location.href='signup.html'">Sign Up</button>
+        </div>
+    </div>
+</body>
+</html> -->
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="login.css">
+    <style>
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+            color: white;
+        }
+
+        #error-message {
+            color: red;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+
+        .loading {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+    </style>
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+    import { getFirestore, collection, getDocs, query, where } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyC435II3AsR1m-zFRx4vIIyKdmK-Iaaor4",
+        authDomain: "waste-to-wealth-8a8a6.firebaseapp.com",
+        projectId: "waste-to-wealth-8a8a6",
+        storageBucket: "waste-to-wealth-8a8a6.firebasestorage.app",
+        messagingSenderId: "3177280169",
+        appId: "1:3177280169:web:b1391b8f059ed7ab72afb8",
+        measurementId: "G-CNS0P3R1HK"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    document.addEventListener("DOMContentLoaded", () => {
+    const loginForm = document.getElementById("login-form");
+    const loginButton = loginForm.querySelector("button");
+
+    loginForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        
+        loginButton.disabled = true;
+        loginButton.classList.add("loading");
+        loginButton.textContent = "Logging in...";
+
+        const loginInput = document.getElementById("login-input").value;
+        const password = document.getElementById("password").value;
+        const errorMessage = document.getElementById("error-message");
+        errorMessage.textContent = "";
+
+        try {
+            const usersRef = collection(db, "users");
+            const q = query(usersRef, where("username", "==", loginInput));
+            const q2 = query(usersRef, where("email", "==", loginInput));
+            
+            const querySnapshot = await getDocs(q);
+            const querySnapshot2 = await getDocs(q2);
+            
+            let user = null;
+            let userId = null;
+
+            querySnapshot.forEach((doc) => {
+                user = doc.data();
+                userId = doc.id; // Store the Firestore document ID
+            });
+
+            querySnapshot2.forEach((doc) => {
+                user = doc.data();
+                userId = doc.id; // Store the Firestore document ID
+            });
+
+            if (user && user.password === password) {
+                // Store user details in localStorage
+                localStorage.setItem("username", user.username);
+                localStorage.setItem("email", user.email);
+                localStorage.setItem("creditPoints", user.profileInt || 0); // Store points, default to 0 if missing
+                localStorage.setItem("userId", userId); // Store Firestore document ID
+
+                alert("Login successful!");
+                window.location.href = "index.html";
+            } else {
+                errorMessage.textContent = "Invalid username or password";
+            }
+        } catch (error) {
+            console.error("Error logging in: ", error);
+            errorMessage.textContent = "Error logging in. Try again later.";
+        }
+
+        loginButton.disabled = false;
+        loginButton.classList.remove("loading");
+        loginButton.textContent = "Login";
+    });
+});
+
+</script>
+</head>
+<body>
+    <div class="login-container">
+        <h2>Login</h2>
+        <form id="login-form">
+            <label for="login-input">Username or Email:</label>
+            <input type="text" id="login-input" name="login-input" placeholder="Enter your username or email" required>
+            
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" placeholder="Enter your password" required>
+            
+            <p id="error-message"></p>
+            
+            <button type="submit">Login</button>
+        </form>
+        <div class="signup-container">
+            <p>Don't have an account?</p>
+            <button class="signup-btn" onclick="window.location.href='signup.html'">Sign Up</button>
+        </div>
+    </div>
+</body>
+</html>

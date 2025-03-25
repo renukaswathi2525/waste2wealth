@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Details</title>
+    <link rel="stylesheet" href="profile.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>User Dashboard</h1>
+            <button class="profile-button" onclick="logout()">Logout</button>
+        </header>
+
+        <main>
+            <div class="user-info">
+                <h2>User Information</h2>
+                <p><strong>Name:</strong> <span id="user-name">Loading...</span></p>
+                <p><strong>Email:</strong> <span id="user-email">Loading...</span></p>
+                <p><strong>Membership:</strong> Premium</p>
+
+                <div class="qr-container">
+                    <h3>Your QR Code</h3>
+                    <div id="qrcode"></div>
+                </div>
+            </div> 
+
+            <div class="credit-info">
+                <h2>Credit Points</h2>
+                <p><strong>Total Points:</strong> <span id="user-points">0</span></p>
+                <p><strong>Earned Through:</strong> Machine A</p>
+                <p><strong>Last Activity:</strong> 25th March, 2025</p>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        function loadUserData() {
+            const fullName = localStorage.getItem("username") || "Guest";
+            const email = localStorage.getItem("email") || "Not available";
+            const credentiPoints = localStorage.getItem("profileInt") || 0;
+            const userId = localStorage.getItem("userid") || "unknown"; // Assuming userid is stored during login
+
+            // Update HTML
+            document.getElementById("user-name").textContent = fullName;
+            document.getElementById("user-email").textContent = email;
+            document.getElementById("user-points").textContent = credentiPoints;
+
+            // Create QR Code Data
+            const qrData = { userid: userId };
+            const qrString = JSON.stringify(qrData);
+            const base64QRData = btoa(qrString); // Base64 encode the QR data
+
+            // Generate QR Code
+            new QRCode(document.getElementById("qrcode"), {
+                text: base64QRData,
+                width: 128,
+                height: 128
+            });
+        }
+
+        function logout() {
+            localStorage.clear();
+            window.location.href = "login.html";
+        }
+
+        window.onload = loadUserData;
+    </script>
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up Page</title>
+    <link rel="stylesheet" href="signup.css">
+</head>
+<body>
+    <div class="signup-container">
+        <h2>Sign Up</h2>
+        <form>
+            <label for="fullname">Full Name:</label>
+            <input type="text" id="fullname" name="fullname" placeholder="Enter your full name" required>
+            
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email" required>
+            
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" placeholder="Choose a username" required>
+            
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" placeholder="Create a password" required>
+            
+            <label for="confirm-password">Confirm Password:</label>
+            <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm your password" required>
+            
+            <button type="submit">Sign Up</button>
+        </form>
+        <div class="login-container">
+            <p>Already have an account?</p>
+            <button class="login-btn" onclick="window.location.href='login.html'">Login</button>
+        </div>
+    </div>
+</body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up Page</title>
+    <link rel="stylesheet" href="signup.css">
+    <script type="module">
+        // Import Firebase SDK
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+
+        // Firebase configuration
+        const firebaseConfig = {
+  apiKey: "AIzaSyC435II3AsR1m-zFRx4vIIyKdmK-Iaaor4",
+  authDomain: "waste-to-wealth-8a8a6.firebaseapp.com",
+  projectId: "waste-to-wealth-8a8a6",
+  storageBucket: "waste-to-wealth-8a8a6.firebasestorage.app",
+  messagingSenderId: "3177280169",
+  appId: "1:3177280169:web:b1391b8f059ed7ab72afb8",
+  measurementId: "G-CNS0P3R1HK"
+};
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        document.addEventListener("DOMContentLoaded", () => {
+            document.getElementById("signup-form").addEventListener("submit", async (e) => {
+                e.preventDefault();
+                
+                const fullName = document.getElementById("fullname").value;
+                const email = document.getElementById("email").value;
+                const username = document.getElementById("username").value;
+                const password = document.getElementById("password").value;
+                const confirmPassword = document.getElementById("confirm-password").value;
+
+                if (password !== confirmPassword) {
+                    alert("Passwords do not match!");
+                    return;
+                }
+
+                try {
+                    await addDoc(collection(db, "users"), {
+                        fullName,
+                        email,
+                        username,
+                        password
+                    });
+                    alert("Sign up successful!");
+                    window.location.href = "login.html";
+                } catch (error) {
+                    console.error("Error signing up: ", error);
+                    alert("Error signing up. Try again later.");
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="signup-container">
+        <h2>Sign Up</h2>
+        <form id="signup-form">
+            <label for="fullname">Full Name:</label>
+            <input type="text" id="fullname" name="fullname" placeholder="Enter your full name" required>
+            
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email" required>
+            
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" placeholder="Choose a username" required>
+            
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" placeholder="Create a password" required>
+            
+            <label for="confirm-password">Confirm Password:</label>
+            <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm your password" required>
+            
+            <button type="submit">Sign Up</button>
+        </form>
+        <div class="login-container">
+            <p>Already have an account?</p>
+            <button class="login-btn" onclick="window.location.href='login.html'">Login</button>
+        </div>
+    </div>
+</body>
+</html>
